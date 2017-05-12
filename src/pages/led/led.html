@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-navbar>
+  	<button ion-button menuToggle>
+  		<ion-icon name="menu"></ion-icon>
+  	</button>
+    <ion-title>LED</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h2>Scan for Bluetooth devices</h2>
+  <h4>Version 22</h4>
+  
+
+  <p>
+  	<button ion-button icon-left (click)="ble_scan()">
+  		<ion-icon name="bluetooth"></ion-icon>
+  		BLE Scan
+  	</button>
+  </p>
+  
+  <p id="state">state</p>
+  <p id="scan">scan</p>
+  <p id="data">data</p>
+  <p id="test">test</p>
+
+  <ion-list inset>
+    <ion-item-sliding *ngFor="let device of devices" #slidingItem>
+      <button ion-item (click)="connect(device)">
+        <h2>Device Name: {{device.name}}</h2>
+        <p>ID: {{device.id}}</p>
+        <p>rssi: {{device.rssi}}</p>
+      </button>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-spinner *ngIf="isScanning==true" name="circles">spinner</ion-spinner>
+
+
+  <p>
+    <button ion-button (click)="connect()">Connect</button>
+  </p>
+
+  <p>
+    <button ion-button (click)="disconnect()">Disconnect</button>
+  </p>
+
+  <p>
+    <button ion-button block color="danger" (touchstart)="emergency_stop()" (touchend)="brake()">Emergency Stop</button>
+  </p>
+  <p>
+    <button ion-button block (click)="brake()">Brake</button>
+  </p>
+  <p>
+    <button ion-button block (touchstart)="forward()" (touchend)="brake()">Forward</button>
+  </p>
+  <p>
+    <button ion-button block (touchstart)="backward()" (touchend)="brake()">Backward</button>
+  </p>
+  <p>
+    <button ion-button block (touchstart)="left()" (touchend)="brake()">Left</button>
+  </p>
+  <p>
+    <button ion-button block (touchstart)="right()" (touchend)="brake()">Right</button>
+  </p>
+
+
+  <p>
+    <button ion-button (click)="led_on()">led ON</button>
+  </p>
+
+  <p>
+    <button ion-button (click)="led_off()">led OFF</button>
+  </p>
+
+  <!--
+  <p>
+      <button ion-button (click)="get_IDs()">Display connected device</button>
+  </p>
+  -->
+
+  <p id="device"></p>
+  <p id="service"></p>
+
+</ion-content>
